@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "552651360053",
+    "project_id": "puntodeventa-movil-tvz",
+    "storage_bucket": "puntodeventa-movil-tvz.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:552651360053:android:7ee45aa78ea86d68432e7c",
+        "android_client_info": {
+          "package_name": "com.example.punto_de_venta_movil"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAi9f3TdwL2zk4WfImrSjH2ZeoiVu-r5pc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
