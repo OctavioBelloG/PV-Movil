@@ -19,9 +19,9 @@ class ListProductosScreen extends StatelessWidget {
                 Producto producto = snapshot.data?[index] as Producto;
                 return ListTile(
                   title: Text(producto.nombre),
-                  subtitle: Text('Código: ${producto.codigoBarras}  |  Stock: ${producto.stock}'),
+                  subtitle: Text(producto.stock as String), //asoo asi no marca error
                   trailing: Icon(
-                    Icons.circle,
+                    Icons.circle, //como un if que mostrara un icono de color para producto en stock
                     color: producto.activo ? Colors.green : Colors.red,
                     size: 15,
                   ),

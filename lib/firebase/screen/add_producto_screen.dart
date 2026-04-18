@@ -36,9 +36,8 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
                 controller: txtNombre,
                 decoration: InputDecoration(
                   labelText: 'Nombre del producto',
-                  hintText: 'Leche Lala 1L',
+                  hintText: 'Leche nutri',
                   helperText: 'Ingrese el nombre del producto',
-                  suffixIcon: const Icon(Icons.inventory_2),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
@@ -49,10 +48,9 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
               TextFormField(
                 controller: txtCodigoBarras,
                 decoration: InputDecoration(
-                  labelText: 'Código de barras',
-                  hintText: '7501055300944',
-                  helperText: 'Ingrese o escanee el código EAN',
-                  suffixIcon: const Icon(Icons.barcode_reader),
+                  labelText: 'codigo de barras',
+                  hintText: '55610688151',
+                  helperText: 'Ingrese o escanee el codigo',
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
@@ -72,7 +70,7 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty) return 'Campo requerido';
-                  if (int.tryParse(value) == null) return 'Ingrese un número válido';
+                  if (int.tryParse(value) == null) return 'ingrese un número valido';
                   return null;
                 },
               ),
@@ -81,7 +79,7 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
               // Boolean: activo
               SwitchListTile(
                 title: const Text('Producto activo'),
-                subtitle: Text(activo ? 'Disponible para venta' : 'No disponible para venta'),
+                subtitle: Text(activo ? 'Disponible para venta' : 'No esta disponible para venta ._.'),
                 value: activo,
                 onChanged: (value) => setState(() => activo = value),
               ),
@@ -90,15 +88,14 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
               // Map: pago — subcampos
               const Align(
                 alignment: Alignment.centerLeft,
-                child: Text('Datos de pago', style: TextStyle(fontWeight: FontWeight.bold)),
+                child: Text('Datos del pago', style: TextStyle(fontWeight: FontWeight.bold)),
               ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: txtMetodoPago,
                 decoration: InputDecoration(
-                  labelText: 'Método de pago',
+                  labelText: 'metodo de pago',
                   hintText: 'efectivo / tarjeta / transferencia',
-                  suffixIcon: const Icon(Icons.payment),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 ),
                 validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
@@ -110,12 +107,11 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
                 decoration: InputDecoration(
                   labelText: 'Monto recibido',
                   hintText: '100.00',
-                  suffixIcon: const Icon(Icons.attach_money),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) return 'Campo requerido';
-                  if (double.tryParse(value) == null) return 'Ingrese un monto válido';
+                  if (double.tryParse(value) == null) return 'ingrese un monto valido';
                   return null;
                 },
               ),
@@ -126,12 +122,11 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
                 decoration: InputDecoration(
                   labelText: 'Cambio',
                   hintText: '14.50',
-                  suffixIcon: const Icon(Icons.money_off),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
                 ),
                 validator: (value) {
                   if (value!.isEmpty) return 'Campo requerido';
-                  if (double.tryParse(value) == null) return 'Ingrese un valor válido';
+                  if (double.tryParse(value) == null) return 'ingrese un valor vaido';
                   return null;
                 },
               ),
@@ -141,15 +136,15 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
                 onPressed: () async {
                   if (formKey.currentState!.validate()) {
                     Producto p = Producto(
-                      nombre:       txtNombre.text,
+                      nombre: txtNombre.text,
                       codigoBarras: txtCodigoBarras.text,
-                      stock:        int.parse(txtStock.text),
-                      activo:       activo,
-                      fecha:        DateTime.now(), // DateTime — se genera automáticamente
-                      pago: {       // Map con los subcampos
-                        'metodo':        txtMetodoPago.text,
+                      stock: int.parse(txtStock.text),
+                      activo: activo,
+                      fecha: DateTime.now(), // DateTime — se genera automáticamente
+                      pago: {// el Map con los subcampos
+                        'metodo': txtMetodoPago.text,
                         'montoRecibido': double.parse(txtMontoRecibido.text),
-                        'cambio':        double.parse(txtCambio.text),
+                        'cambio':double.parse(txtCambio.text),
                       },
                     );
                     int code = await addProducto(p);

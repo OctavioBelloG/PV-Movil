@@ -1,5 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:punto_de_venta_movil/extenciones-creo/cuenta_bloc.dart';
+import 'package:punto_de_venta_movil/firebase/screen/add_producto_screen.dart';
+import 'package:punto_de_venta_movil/firebase/screen/edit_producto_screen.dart';
+import 'package:punto_de_venta_movil/firebase/screen/list_producto_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -28,10 +33,10 @@ class MyApp extends StatelessWidget {
         title: 'Mi Primera App',
         debugShowCheckedModeBanner: false,
         initialRoute: '/',
-        routes: {
-          '/productos': (_) => ListProductosScreen(),
+        routes: {//las rutas
+          '/': (_) => ListProductosScreen(),
           '/addProducto': (_) => AddProductoScreen(),
-          '/editProducto': (_) => EditProductoScreen(),
+          //'/editProducto': (_) => EditProductoScreen(),
           '/deleteProducto': (_) => DeleteProductoScreen(),
         },
       ),

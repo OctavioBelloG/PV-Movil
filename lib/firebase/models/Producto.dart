@@ -6,7 +6,7 @@ class Producto {
   int stock;
   bool activo;
   DateTime fecha;
-  Map<String, dynamic> pago; // Map — { metodo, montoRecibido, cambio }
+  Map<String, dynamic> pago; // Map = { metodo, montoRecibido, cambio }
 
   Producto({
     this.id,
@@ -20,13 +20,13 @@ class Producto {
 
   factory Producto.fromFirebase(Map<String, dynamic> json) {
     return Producto(
-      id:           json['id'],
-      nombre:       json['nombre'],
+      id: json['id'],
+      nombre: json['nombre'],
       codigoBarras: json['codigoBarras'],
-      stock:        json['stock'],
-      activo:       json['activo'],
-      fecha:        json['fecha'],
-      pago:         Map<String, dynamic>.from(json['pago']),
+      stock: json['stock'],
+      activo: json['activo'],
+      fecha: json['fecha'],
+      pago: Map<String, dynamic>.from(json['pago']),
     );
   }
 
@@ -44,13 +44,13 @@ class Producto {
 
   factory Producto.fromFirebaseDoc(String doc, Map<String, dynamic> json) {
     return Producto(
-      id:           doc,
-      nombre:       json['nombre'],
+      id: doc,
+      nombre: json['nombre'],
       codigoBarras: json['codigoBarras'],
-      stock:        json['stock'],
-      activo:       json['activo'],
-      fecha:        json['fecha'],
-      pago:         Map<String, dynamic>.from(json['pago']),
+      stock: json['stock'],
+      activo: json['activo'],
+      fecha: json['fecha'],
+      pago: Map<String, dynamic>.from(json['pago']),
     );
   }
 
