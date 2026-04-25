@@ -19,7 +19,7 @@ class DeleteProductoScreen extends StatelessWidget {
             'Tas seguro de querer eliminar del registro a: ${producto.nombre}?'),
           SizedBox(height: 50),
           Text(
-            'Código: ${producto.codigoBarras}  |  Stock: ${producto.stock}',
+            'Código: ${producto.codigoBarras},  Stock: ${producto.stock}',
             style: const TextStyle(color: Colors.grey),
           ),
           const SizedBox(height: 50),
