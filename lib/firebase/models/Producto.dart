@@ -9,6 +9,7 @@ class Producto {
   int stock;
   bool activo;
   DateTime fecha;
+ // int precio;
   Map<String, dynamic> pago; // Map = { metodo, montoRecibido, cambio }
 
   Producto({
@@ -19,6 +20,7 @@ class Producto {
     required this.stock,
     required this.activo,
     required this.fecha,
+   // required this.precio,
     required this.pago,
   });
 
@@ -41,6 +43,7 @@ class Producto {
       stock: json['stock'] ?? 0,
       activo: json['activo'] ?? false,
       fecha: fechaValue,
+     // precio: json['precio'] ?? 0,
       pago: Map<String, dynamic>.from(json['pago'] ?? {}),
     );
   }
@@ -55,6 +58,7 @@ class Producto {
       'activo': activo,
       'fecha': fecha.toIso8601String(),
       'pago': pago,
+     // 'precio': precio,
     };
   }
 
@@ -77,6 +81,7 @@ class Producto {
       stock: json['stock'] ?? 0,
       activo: json['activo'] ?? false,
       fecha: fechaValue,
+     // precio: json['precio'] ?? 0,
       pago: Map<String, dynamic>.from(json['pago'] ?? {}),
     );
   }

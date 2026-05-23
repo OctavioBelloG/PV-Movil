@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:punto_de_venta_movil/theme_cubit.dart';
 import '../models/producto.dart';
 import '../services/producto_service.dart';
 
@@ -10,7 +12,28 @@ class DeleteProductoScreen extends StatelessWidget {
     final Producto producto = ModalRoute.of(context)!.settings.arguments as Producto;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Eliminar Producto')),
+      appBar: AppBar(
+        title: const Text('Eliminar producto'),
+        actions: [
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              return IconButton(
+                icon: Icon(
+                  themeMode == ThemeMode.light
+                      ? Icons.dark_mode
+                      : Icons.light_mode,
+                ),
+                tooltip: themeMode == ThemeMode.light
+                    ? 'Cambiar a modo oscuro'
+                    : 'Cambiar a modo claro',
+                onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+              );
+            },
+          ),
+        ],
+      ),
+
+      
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [

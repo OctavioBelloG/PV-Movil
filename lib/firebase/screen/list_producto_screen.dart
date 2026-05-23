@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:punto_de_venta_movil/theme_cubit.dart';
 import '../models/producto.dart';
 import '../services/producto_service.dart';
 
@@ -8,7 +10,26 @@ class ListProductosScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Lista de los Productos')),
+      appBar: AppBar(
+        title: const Text('Lista de los Productos'),
+        actions: [
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              return IconButton(
+                icon: Icon(
+                  themeMode == ThemeMode.light
+                      ? Icons.dark_mode
+                      : Icons.light_mode,
+                ),
+                tooltip: themeMode == ThemeMode.light
+                    ? 'Cambiar a modo oscuro'
+                    : 'Cambiar a modo claro',
+                onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+              );
+            },
+          ),
+        ],
+      ),
       body: FutureBuilder(
         future: getProductosDocId(),
         builder: (context, snapshot) {
@@ -21,7 +42,7 @@ class ListProductosScreen extends StatelessWidget {
                   title: Text(producto.nombre),
                     subtitle: Text('Código: ${producto.codigoBarras},  Stock: ${producto.stock}'),                  
                     trailing: Icon(
-                    Icons.circle, //como un if que mostrara un icono de color para producto en stock
+                    Icons.check_circle, //como un if que mostrara un icono de color para producto en stock
                     color: producto.activo ? Colors.green : Colors.red,
                     size: 15,
                   ),

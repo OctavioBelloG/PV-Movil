@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:punto_de_venta_movil/theme_cubit.dart';
 import '../models/producto.dart';
 import '../services/producto_service.dart';
 
@@ -9,30 +11,37 @@ class AddProductoScreen extends StatefulWidget {
   State<AddProductoScreen> createState() => _AddProductoScreenState();
 }
 class _AddProductoScreenState extends State<AddProductoScreen> {
-  final TextEditingController txtNombre = TextEditingController();
-  final TextEditingController txtCodigoBarras = TextEditingController();
-  final TextEditingController txtStock = TextEditingController();
-  final TextEditingController txtMetodoPago = TextEditingController();
-  final TextEditingController txtMontoRecibido = TextEditingController();
-  final TextEditingController txtCambio = TextEditingController();
-  bool activo = true;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    txtNombre.dispose();
-    txtCodigoBarras.dispose();
-    txtStock.dispose();
-    txtMetodoPago.dispose();
-    txtMontoRecibido.dispose();
-    txtCambio.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
+
+  TextEditingController txtNombre = TextEditingController();
+  TextEditingController txtCodigoBarras = TextEditingController();
+  TextEditingController txtStock = TextEditingController();
+  bool activo = true;
+  final formKey = GlobalKey<FormState>();
+    
     return Scaffold(
-      appBar: AppBar(title: const Text('Agregar Producto')),
+      appBar: AppBar(
+        title: const Text('Agregar Producto'),
+        actions: [
+          BlocBuilder<ThemeCubit, ThemeMode>(
+            builder: (context, themeMode) {
+              return IconButton(
+                icon: Icon(
+                  themeMode == ThemeMode.light
+                      ? Icons.dark_mode
+                      : Icons.light_mode,
+                ),
+                tooltip: themeMode == ThemeMode.light
+                    ? 'Cambiar a modo oscuro'
+                    : 'Cambiar a modo claro',
+                onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+              );
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(padding: const EdgeInsets.all(12),
@@ -88,79 +97,17 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
               ),
               const SizedBox(height: 12),
 
-              // Boolean: activo
-              SwitchListTile(
-                title: const Text('Producto activo'),
-                subtitle: Text(activo ? 'Disponible para venta' : 'No esta disponible para venta ._.'),
-                value: activo,
-                onChanged: (value) => setState(() => activo = value),
-              ),
-              const SizedBox(height: 12),
-
-              // Map: pago — subcampos
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text('datos del pago', style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              const SizedBox(height: 8),
-
-
-              // TextFormField(
-              //   controller: txtMetodoPago,
-              //   decoration: InputDecoration(
-              //     labelText: 'metodo de pago',
-              //     hintText: 'efectivo - tarjeta - transferencia',
-              //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              //   ),
-              //   validator: (value) => value!.isEmpty ? 'Campo requerido' : null,
-              // ),
-              // const SizedBox(height: 8),
-              // TextFormField(
-              //   controller: txtMontoRecibido,
-              //   keyboardType: TextInputType.number,
-              //   decoration: InputDecoration(
-              //     labelText: 'Monto recibido',
-              //     hintText: '100.00',
-              //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              //   ),
-              //   validator: (value) {
-              //     if (value!.isEmpty) return 'Campo requerido';
-              //     if (double.tryParse(value) == null) return 'ingrese un monto valido';
-              //     return null;
-              //   },
-              // ),
-              //const SizedBox(height: 8),
-              // TextFormField(
-              //   controller: txtCambio,
-              //   keyboardType: TextInputType.number,
-              //   decoration: InputDecoration(
-              //     labelText: 'Cambio',
-              //     hintText: '14.50',
-              //     border: OutlineInputBorder(borderRadius: BorderRadius.circular(20)),
-              //   ),
-              //   validator: (value) {
-              //     if (value!.isEmpty) return 'Campo requerido';
-              //     if (double.tryParse(value) == null) return 'ingrese un valor vaido';
-              //     return null;
-              //   },
-              // ),
-              // const SizedBox(height: 20),
-
               OutlinedButton.icon(
                 onPressed: () async {
-                  FocusScope.of(context).unfocus();
-                  if (formKey.currentState?.validate() ?? false) {
+                  //FocusScope.of(context).unfocus();
+                  if (formKey.currentState!.validate()) {
                     Producto p = Producto(
                       nombre: txtNombre.text,
                       codigoBarras: txtCodigoBarras.text,
                       stock: int.parse(txtStock.text),
                       activo: activo,
-                      fecha: DateTime.now(), // DateTime — se genera automáticamente
-                      pago: {
-                        'metodo': txtMetodoPago.text.trim(),
-                        'montoRecibido': double.tryParse(txtMontoRecibido.text) ?? 0.0,
-                        'cambio': double.tryParse(txtCambio.text) ?? 0.0,
-                      },
+                      fecha: DateTime.now(), 
+                      pago: {},
                     );
                     int code = await addProducto(p);
                     if (code == 200 && context.mounted) {
@@ -179,7 +126,7 @@ class _AddProductoScreenState extends State<AddProductoScreen> {
                     );
                   }
                 },
-                icon: const Icon(Icons.save),
+                icon: const Icon(Icons.airplay_rounded),
                 label: const Text('Guardar'),
               ),
 
