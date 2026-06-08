@@ -6,7 +6,7 @@ class Inicio_Screen extends StatefulWidget {
   const Inicio_Screen({super.key});
 
   @override
-  State<Inicio_Screen> createState() => _Inicio_ScreenState();
+  State<Inicio_Screen> createState() => _Inicio_ScreenState(); 
 }
 
 class _Inicio_ScreenState extends State<Inicio_Screen> {
@@ -14,7 +14,7 @@ class _Inicio_ScreenState extends State<Inicio_Screen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Agregar Producto'),
+        title: const Text('The Point'),
         actions: [
           BlocBuilder<ThemeCubit, ThemeMode>(
             builder: (context, themeMode) {
@@ -43,7 +43,7 @@ class _Inicio_ScreenState extends State<Inicio_Screen> {
               Navigator.pushNamed(context, '/ventaProducto');
             },
             icon: const Icon(Icons.shopping_cart),
-            label: const Text('Venta'),
+            label: const Text('Ventas'),
           ),
 
           const SizedBox(height: 20),

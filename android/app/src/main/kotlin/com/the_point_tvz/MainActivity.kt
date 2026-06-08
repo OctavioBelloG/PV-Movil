@@ -1,4 +1,4 @@
-package com.example.punto_de_venta_movil
+package com.the_point_tvz
 
 import io.flutter.embedding.android.FlutterActivity
 

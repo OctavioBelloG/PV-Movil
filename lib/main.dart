@@ -7,6 +7,8 @@ import 'package:punto_de_venta_movil/firebase/screen/delete_producto_screen.dart
 import 'package:punto_de_venta_movil/firebase/screen/edit_producto_screen.dart';
 import 'package:punto_de_venta_movil/firebase/screen/inicio_screen.dart';
 import 'package:punto_de_venta_movil/firebase/screen/list_producto_screen.dart';
+import 'package:punto_de_venta_movil/firebase/screen/list_venta_screen.dart';
+import 'package:punto_de_venta_movil/firebase/screen/venta_screen.dart';
 import 'package:punto_de_venta_movil/theme_cubit.dart';
 import 'firebase_options.dart';
 
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeMode>(
         builder: (context, themeMode) {
           return MaterialApp(
-            title: 'Mi Primera App',
+            title: 'The Point',
             debugShowCheckedModeBanner: false,
             theme: ThemeData(
               brightness: Brightness.light,
@@ -56,6 +58,8 @@ class MyApp extends StatelessWidget {
               '/addProducto': (_) => AddProductoScreen(),
               '/editProducto': (_) => EditProductoScreen(),
               '/deleteProducto': (_) => DeleteProductoScreen(),
+              '/ventaProducto': (_) => const VentaScreen(),
+              '/listVenta': (_) => const ListVentaScreen(),
             },
           );
         },
